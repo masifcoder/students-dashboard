@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students - Student Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <a href="dashboard.html" class="sidebar-brand">
+                <i class="bi bi-mortarboard-fill fs-3 text-primary"></i>
+                <span>EduClass</span>
+            </a>
+
+            <ul class="sidebar-menu">
+                <li class="nav-label">Main Menu</li>
+                <li>
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="students.html" class="nav-link active">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="student-create.html" class="nav-link">
+                        <i class="bi bi-person-plus-fill"></i>
+                        <span>Add Student</span>
+                    </a>
+                </li>
+                
+                <li class="nav-label mt-3">Administration</li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-calendar3"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Examinations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-gear-fill"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-user">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" class="avatar-sm" alt="Teacher">
+                <div class="flex-grow-1 overflow-hidden">
+                    <h6 class="mb-0 text-truncate fs-6 fw-semibold">Sarah Jenkins</h6>
+                    <small class="text-muted text-truncate d-block">Class Teacher</small>
+                </div>
+                <a href="login.html" class="text-danger p-1" title="Log Out">
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Header Navbar -->
+            <header class="top-navbar">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-light d-lg-none p-2 border" id="sidebarToggle">
+                        <i class="bi bi-list fs-5"></i>
+                    </button>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="dashboard.html" class="text-decoration-none text-muted">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Students</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <button type="button" class="btn btn-light rounded-circle position-relative p-2 border">
+                        <i class="bi bi-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                    </button>
+
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" class="avatar-sm me-2" alt="Teacher">
+                            <span class="d-none d-sm-inline fw-semibold">Sarah J.</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="userMenu">
+                            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-sliders me-2"></i>Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item py-2 text-danger" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Students List Page Body -->
+            <main class="content-body">
+                <!-- Header Title & Action -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-1">Students Directory</h4>
+                        <p class="text-muted small mb-0">View, search, and manage all registered class students</p>
+                    </div>
+                    <a href="student-create.html" class="btn btn-primary d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Add Student</span>
+                    </a>
+                </div>
+
+                <!-- Filters & Search Toolbar -->
+                <div class="card-custom p-3 mb-4">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                                <input type="text" class="form-control border-start-0 ps-0" placeholder="Search by name, email or roll...">
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <select class="form-select">
+                                <option value="">All Classes</option>
+                                <option value="10-A">Grade 10-A</option>
+                                <option value="10-B">Grade 10-B</option>
+                                <option value="11-A">Grade 11-A</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <select class="form-select">
+                                <option value="">All Statuses</option>
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-2 d-grid">
+                            <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-1">
+                                <i class="bi bi-arrow-clockwise"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students Table Card -->
+                <div class="card-custom overflow-hidden">
+                    <div class="table-responsive">
+                        <table class="table table-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Roll No</th>
+                                    <th>Class</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&crop=faces" class="avatar-sm rounded-circle" alt="Alex">
+                                            <div>
+                                                <a href="student-detail.html" class="fw-semibold text-dark text-decoration-none">Alex Rivera</a>
+                                                <div class="small text-muted">alex.r@school.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">#1024</span></td>
+                                    <td>Grade 10-A</td>
+                                    <td>Male</td>
+                                    <td>+1 (555) 234-5678</td>
+                                    <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
+                                            <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=faces" class="avatar-sm rounded-circle" alt="Emma">
+                                            <div>
+                                                <a href="student-detail.html" class="fw-semibold text-dark text-decoration-none">Emma Watson</a>
+                                                <div class="small text-muted">emma.w@school.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">#1025</span></td>
+                                    <td>Grade 10-A</td>
+                                    <td>Female</td>
+                                    <td>+1 (555) 345-6789</td>
+                                    <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
+                                            <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces" class="avatar-sm rounded-circle" alt="Liam">
+                                            <div>
+                                                <a href="student-detail.html" class="fw-semibold text-dark text-decoration-none">Liam Vance</a>
+                                                <div class="small text-muted">liam.v@school.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">#1026</span></td>
+                                    <td>Grade 10-B</td>
+                                    <td>Male</td>
+                                    <td>+1 (555) 456-7890</td>
+                                    <td><span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1">Pending</span></td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
+                                            <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces" class="avatar-sm rounded-circle" alt="Sophia">
+                                            <div>
+                                                <a href="student-detail.html" class="fw-semibold text-dark text-decoration-none">Sophia Martinez</a>
+                                                <div class="small text-muted">sophia.m@school.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">#1027</span></td>
+                                    <td>Grade 10-A</td>
+                                    <td>Female</td>
+                                    <td>+1 (555) 567-8901</td>
+                                    <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
+                                            <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="avatar-sm avatar-placeholder">DH</div>
+                                            <div>
+                                                <a href="student-detail.html" class="fw-semibold text-dark text-decoration-none">David Harris</a>
+                                                <div class="small text-muted">david.h@school.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">#1028</span></td>
+                                    <td>Grade 10-B</td>
+                                    <td>Male</td>
+                                    <td>+1 (555) 678-9012</td>
+                                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">Inactive</span></td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
+                                            <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces" class="avatar-sm rounded-circle" alt="Olivia">
+                                            <div>
+                                                <a href="student-detail.html" class="fw-semibold text-dark text-decoration-none">Olivia Chen</a>
+                                                <div class="small text-muted">olivia.c@school.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">#1029</span></td>
+                                    <td>Grade 10-A</td>
+                                    <td>Female</td>
+                                    <td>+1 (555) 789-0123</td>
+                                    <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Active</span></td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-1">
+                                            <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
+                                            <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                            <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="p-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <small class="text-muted">Showing <strong>1 to 6</strong> of <strong>142</strong> students</small>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteStudentModal" tabindex="-1" aria-labelledby="deleteStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold" id="deleteStudentModalLabel">Delete Student Record</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <p class="text-muted mb-0">Are you sure you want to delete this student? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete Record</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
