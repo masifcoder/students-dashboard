@@ -1,3 +1,16 @@
+<?php
+require_once __DIR__ . "/config.php";
+
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+
+// echo "<pre>";
+// print_r($errors);
+// echo "</pre>";
+// exit;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,13 +43,25 @@
                 <p class="text-muted small">Sign in to manage your students and classes</p>
             </div>
 
-            <form action="dashboard.html" method="GET">
+            <?php if (!empty($errors)) { ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach ($errors as $error) { ?>
+                            <li><?=  $error ?></li>
+                        <?php } ?>
+                    </ul>
+
+                </div>
+
+            <?php } ?>
+
+            <form action="./handle_login.php" method="POST">
                 <div class="mb-3">
                     <label for="email" class="form-label small fw-semibold text-secondary">Email Address</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light text-muted border-end-0"><i
                                 class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control border-start-0 ps-0" id="email"
+                        <input type="text" name="email" class="form-control border-start-0 ps-0" id="email"
                             placeholder="teacher@school.edu" required>
                     </div>
                 </div>
@@ -49,7 +74,7 @@
                     <div class="input-group">
                         <span class="input-group-text bg-light text-muted border-end-0"><i
                                 class="bi bi-lock"></i></span>
-                        <input type="password" class="form-control border-start-0 ps-0" id="password"
+                        <input type="password" name="password" class="form-control border-start-0 ps-0" id="password"
                             placeholder="••••••••" required>
                     </div>
                 </div>
@@ -62,7 +87,7 @@
             </form>
 
             <div class="mt-4 text-center">
-                <p class="small text-muted mb-0">Don't have an account? <a href="register.html"
+                <p class="small text-muted mb-0">Don't have an account? <a href="register.php"
                         class="fw-semibold text-primary text-decoration-none">Sign Up</a></p>
             </div>
         </div>

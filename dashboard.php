@@ -1,3 +1,4 @@
+<?php  require_once __DIR__ . "/auth_check.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +78,7 @@
                     <h6 class="mb-0 text-truncate fs-6 fw-semibold">Sarah Jenkins</h6>
                     <small class="text-muted text-truncate d-block">Class Teacher</small>
                 </div>
-                <a href="login.html" class="text-danger p-1" title="Log Out">
+                <a href="logout.php" class="text-danger p-1" title="Log Out">
                     <i class="bi bi-box-arrow-right fs-5"></i>
                 </a>
             </div>

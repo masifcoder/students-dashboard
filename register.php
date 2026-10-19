@@ -102,7 +102,7 @@ unset($_SESSION['success']);
             </form>
 
             <div class="mt-4 text-center">
-                <p class="small text-muted mb-0">Already have an account? <a href="login.html" class="fw-semibold text-primary text-decoration-none">Sign In</a></p>
+                <p class="small text-muted mb-0">Already have an account? <a href="login.php" class="fw-semibold text-primary text-decoration-none">Sign In</a></p>
             </div>
         </div>
     </div>
