@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__ . "/config.php";
+require_once __DIR__ . "/auth_check.php";
 require_once __DIR__ . "/db.php";
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
+$class = isset($_GET['class']) ? $_GET['class'] : '';
 
 // echo $search;
 // exit;
@@ -13,9 +15,12 @@ $q = "SELECT * FROM students_info
                 ON students_info.student_id = students_academics.student_id";
 
 if ($search != '') {
-    $q .= " WHERE (students_info.first_name LIKE '%$search%' OR students_info.last_name LIKE '%$search%') ";
+    $q .= " WHERE (students_info.first_name ='$search' OR students_info.last_name = '$search' OR students_info.email='$search' OR students_academics.roll_number='$search' )";
 }
 
+if ($class != '') {
+    $q .= " AND class='$class'";
+}
 
 
 // excecute
@@ -112,16 +117,16 @@ $data   = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
                 <!-- Filters & Search Toolbar -->
                 <div class="card-custom p-3 mb-4">
-                    <form method="GET">
+                    <form  method="GET">
                         <div class="row g-3">
                             <div class="col-12 col-md-5">
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                                    <input type="text" name="search" class="form-control border-start-0 ps-0" placeholder="Search by name, email or roll...">
+                                    <input type="text" name="search" value="<?= $search ?>" class="form-control border-start-0 ps-0" placeholder="Search by name, email or roll...">
                                 </div>
                             </div>
                             <div class="col-6 col-md-3">
-                                <select class="form-select">
+                                <select name="class" class="form-select">
                                     <option value="">All Classes</option>
                                     <option value="10-A">Grade 10-A</option>
                                     <option value="10-B">Grade 10-B</option>
