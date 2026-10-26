@@ -6,8 +6,11 @@ require_once __DIR__ . "/db.php";
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 $class = isset($_GET['class']) ? $_GET['class'] : '';
 
-// echo $search;
-// exit;
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+$sucess = $_SESSION['success'] ?? null;
+unset($_SESSION['success']);
 
 // get students query
 $q = "SELECT * FROM students_info 
@@ -117,7 +120,7 @@ $data   = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
                 <!-- Filters & Search Toolbar -->
                 <div class="card-custom p-3 mb-4">
-                    <form  method="GET">
+                    <form method="GET">
                         <div class="row g-3">
                             <div class="col-12 col-md-5">
                                 <div class="input-group">
@@ -155,6 +158,23 @@ $data   = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
                 <!-- Students Table Card -->
                 <div class="card-custom overflow-hidden">
+                    <?php if (!empty($errors)) { ?>
+                        <div class="alert alert-danger">
+                            <ul>
+                                <?php foreach ($errors as $error) { ?>
+                                    <li><?= $error ?></li>
+                                <?php } ?>
+                            </ul>
+
+                        </div>
+
+                    <?php } ?>
+
+                    <?php if ($sucess) { ?>
+                        <div class="alert alert-success">
+                            <?php echo $sucess ?>
+                        </div>
+                    <?php } ?>
                     <div class="table-responsive">
                         <table class="table table-custom align-middle">
                             <thead>
@@ -196,7 +216,7 @@ $data   = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                                 <div class="d-inline-flex gap-1">
                                                     <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
                                                     <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
-                                                    <button class="btn btn-sm btn-light border p-1 px-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal" title="Delete"><i class="bi bi-trash"></i></button>
+                                                    <a href="handle_delete.php?id=<?= $student['student_id'] ?>" class="btn btn-sm btn-light border p-1 px-2 text-danger" title="Delete"><i class="bi bi-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
