@@ -215,7 +215,7 @@ $data   = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                             <td class="text-end">
                                                 <div class="d-inline-flex gap-1">
                                                     <a href="student-detail.html" class="btn btn-sm btn-light border p-1 px-2" title="View Profile"><i class="bi bi-eye"></i></a>
-                                                    <a href="student-edit.html" class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
+                                                    <a href="student-edit.php?id=<?= $student['student_id'] ?>" " class="btn btn-sm btn-light border p-1 px-2" title="Edit Student"><i class="bi bi-pencil"></i></a>
                                                     <a href="handle_delete.php?id=<?= $student['student_id'] ?>" class="btn btn-sm btn-light border p-1 px-2 text-danger" title="Delete"><i class="bi bi-trash"></i></a>
                                                 </div>
                                             </td>

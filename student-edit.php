@@ -1,3 +1,46 @@
+<?php
+require_once __DIR__ . "/config.php";
+require_once __DIR__ . "/db.php";
+require_once __DIR__ . "/auth_check.php";
+
+
+$errors = [];
+
+$student_id = $_GET['id'];
+
+// email and password fields are requried
+if (empty($student_id)) {
+    $errors[] = "student id is required";
+}
+
+
+// errors then return back to form
+if (!empty($errors)) {
+    $_SESSION['errors'] = $errors;
+    header("Location: students.php");
+    exit;
+}
+
+// get user data
+// get students query
+$q = "SELECT * FROM students_info 
+	            INNER JOIN students_academics 
+                ON students_info.student_id = students_academics.student_id
+                WHERE students_info.student_id = $student_id";
+
+// excecute
+$result = mysqli_query($conn, $q);
+// fetching data as associatve array
+$student   = mysqli_fetch_assoc($result);
+
+// echo "<pre>";
+// print_r($student);
+// echo "</pre>";
+
+// exit;
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,65 +62,7 @@
 
     <div class="app-container">
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <a href="dashboard.html" class="sidebar-brand">
-                <i class="bi bi-mortarboard-fill fs-3 text-primary"></i>
-                <span>EduClass</span>
-            </a>
-
-            <ul class="sidebar-menu">
-                <li class="nav-label">Main Menu</li>
-                <li>
-                    <a href="dashboard.html" class="nav-link">
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="students.html" class="nav-link active">
-                        <i class="bi bi-people-fill"></i>
-                        <span>Students</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="student-create.html" class="nav-link">
-                        <i class="bi bi-person-plus-fill"></i>
-                        <span>Add Student</span>
-                    </a>
-                </li>
-                
-                <li class="nav-label mt-3">Administration</li>
-                <li>
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-calendar3"></i>
-                        <span>Attendance</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-journal-check"></i>
-                        <span>Examinations</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-gear-fill"></i>
-                        <span>Settings</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="sidebar-user">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" class="avatar-sm" alt="Teacher">
-                <div class="flex-grow-1 overflow-hidden">
-                    <h6 class="mb-0 text-truncate fs-6 fw-semibold">Sarah Jenkins</h6>
-                    <small class="text-muted text-truncate d-block">Class Teacher</small>
-                </div>
-                <a href="login.html" class="text-danger p-1" title="Log Out">
-                    <i class="bi bi-box-arrow-right fs-5"></i>
-                </a>
-            </div>
-        </aside>
+        <?php require_once __DIR__ . "/partials/sidebar.php"; ?>
 
         <!-- Main Content Area -->
         <div class="main-wrapper">
@@ -112,7 +97,7 @@
                     <div class="col-12 col-xl-9">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div>
-                                <h4 class="fw-bold mb-1">Edit Student: Alex Rivera</h4>
+                                <h4 class="fw-bold mb-1">Edit Student: <?= $student['first_name'] . ' ' . $student['last_name'] ?></h4>
                                 <p class="text-muted small mb-0">Update student enrollment records and contact details</p>
                             </div>
                             <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
@@ -120,7 +105,8 @@
                             </span>
                         </div>
 
-                        <form action="students.html" method="GET">
+                        <form action="handle_edit.php" method="POST">
+                            <input type="hidden" name="student_id" value="<?= $student_id ?>">
                             <!-- Avatar & Profile Photo Section -->
                             <div class="card-custom mb-4 p-3">
                                 <div class="d-flex align-items-center gap-3">
@@ -145,19 +131,19 @@
                                     <div class="row g-3">
                                         <div class="col-12 col-md-6">
                                             <label for="firstName" class="form-label small fw-semibold text-secondary">First Name</label>
-                                            <input type="text" class="form-control" id="firstName" value="Alex" required>
+                                            <input type="text" name="first_name" class="form-control" id="firstName" value="<?= $student['first_name'] ?>" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="lastName" class="form-label small fw-semibold text-secondary">Last Name</label>
-                                            <input type="text" class="form-control" id="lastName" value="Rivera" required>
+                                            <input type="text" name="last_name" class="form-control" id="lastName" value="<?= $student['last_name'] ?>" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="studentEmail" class="form-label small fw-semibold text-secondary">Email Address</label>
-                                            <input type="email" class="form-control" id="studentEmail" value="alex.r@school.edu" required>
+                                            <input type="email" class="form-control" id="studentEmail" name="email" value="<?= $student['email'] ?>" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="phone" class="form-label small fw-semibold text-secondary">Phone Number</label>
-                                            <input type="tel" class="form-control" id="phone" value="+1 (555) 234-5678">
+                                            <input type="tel" class="form-control" name="phone" id="phone" value="<?= $student['phone'] ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -172,35 +158,35 @@
                                     <div class="row g-3">
                                         <div class="col-12 col-md-4">
                                             <label for="rollNumber" class="form-label small fw-semibold text-secondary">Roll Number</label>
-                                            <input type="text" class="form-control" id="rollNumber" value="1024" required>
+                                            <input type="text" class="form-control" name="roll_number" id="rollNumber" value="<?= $student['roll_number'] ?>" required>
                                         </div>
                                         <div class="col-12 col-md-4">
                                             <label for="studentClass" class="form-label small fw-semibold text-secondary">Class / Grade</label>
-                                            <select class="form-select" id="studentClass" required>
-                                                <option value="10-A" selected>Grade 10-A</option>
-                                                <option value="10-B">Grade 10-B</option>
-                                                <option value="11-A">Grade 11-A</option>
-                                                <option value="11-B">Grade 11-B</option>
+                                            <select name="class" class="form-select" id="studentClass" required>
+                                                <option value="10-A" <?php echo ($student['class'] == "10-A") ? "selected" : ''  ?> >Grade 10-A</option>
+                                                <option value="10-B" <?php echo ($student['class'] == "10-B") ? "selected" : ''  ?>>Grade 10-B</option>
+                                                <option value="11-A" <?php echo ($student['class'] == "11-A") ? "selected" : ''  ?>>Grade 11-A</option>
+                                                <option value="11-B" <?php echo ($student['class'] == "11-B") ? "selected" : ''  ?>>Grade 11-B</option>
                                             </select>
                                         </div>
                                         <div class="col-12 col-md-4">
                                             <label for="gender" class="form-label small fw-semibold text-secondary">Gender</label>
-                                            <select class="form-select" id="gender">
-                                                <option value="male" selected>Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
+                                            <select name="gender" class="form-select" id="gender">
+                                                <option value="male" <?php echo ($student['gender'] == "male") ? "selected" : ''  ?>>Male</option>
+                                                <option value="female" <?php echo ($student['gender'] == "female") ? "selected" : ''  ?> >Female</option>
+                    
                                             </select>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="dob" class="form-label small fw-semibold text-secondary">Date of Birth</label>
-                                            <input type="date" class="form-control" id="dob" value="2008-04-12">
+                                            <input name="dob" type="date" class="form-control" id="dob" value="<?= $student['dob'] ?>">
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <label for="status" class="form-label small fw-semibold text-secondary">Enrollment Status</label>
-                                            <select class="form-select" id="status">
-                                                <option value="active" selected>Active</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="inactive">Inactive</option>
+                                            <select name="status" class="form-select" id="status">
+                                                <option value="active" <?php echo ($student['status'] == "active") ? "selected" : ''  ?>>Active</option>
+                                                <option value="pending" <?php echo ($student['status'] == "pending") ? "selected" : ''  ?> >Pending</option>
+                                                <option value="inactive" <?php echo ($student['status'] == "inactive") ? "selected" : ''  ?> >Inactive</option>
                                             </select>
                                         </div>
                                     </div>
