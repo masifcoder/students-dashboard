@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=dashboard.html">
+    <meta http-equiv="refresh" content="0; url=dashboard.php">
     <title>Redirecting to Dashboard...</title>
 </head>
 <body>
-    <p>Redirecting to <a href="dashboard.html">Dashboard</a>...</p>
+    <p>Redirecting to <a href="dashboard.php">Dashboard</a>...</p>
 </body>
 </html>

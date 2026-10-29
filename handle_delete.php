@@ -41,10 +41,6 @@ $stmt2 = mysqli_prepare($conn, "DELETE FROM students_info WHERE student_id=? ");
 mysqli_stmt_bind_param($stmt2, 'i', $student_id);
 mysqli_stmt_execute($stmt2);
 
-$stmt3 = mysqli_prepare($conn, "DELETE FROM students_academics WHERE student_id=? ");
-mysqli_stmt_bind_param($stmt3, 'i', $student_id);
-mysqli_stmt_execute($stmt3);
-
 
 $_SESSION['success'] = "Student deleted successfully";
 header("Location: students.php");
